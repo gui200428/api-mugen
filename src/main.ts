@@ -1,0 +1,24 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import helmet from 'helmet';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  // Cabeçalhos de segurança HTTP (HSTS, X-Frame-Options, etc.)
+  app.use(helmet());
+
+  // CORS — libere apenas os domínios do seu frontend em produção
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3001',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true,
+  });
+
+  // Validação global dos DTOs
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  await app.listen(process.env.PORT ?? 3000);
+}
+bootstrap();
