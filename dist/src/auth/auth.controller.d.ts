@@ -10,4 +10,7 @@ export declare class AuthController {
     login(loginDto: LoginDto): Promise<{
         access_token: string;
     }>;
+    getProfile(req: {
+        user: any;
+    }): any;
 }
