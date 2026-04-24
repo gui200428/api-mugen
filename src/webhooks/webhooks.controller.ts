@@ -40,6 +40,7 @@ export class WebhooksController {
 
     switch (event) {
       case 'PURCHASE_APPROVED':
+      case 'PURCHASE_COMPLETE':
         await this.webhooksService.handlePurchaseApproved(payload?.data);
         break;
       case 'PURCHASE_REFUNDED':

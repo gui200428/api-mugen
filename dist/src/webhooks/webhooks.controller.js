@@ -36,6 +36,7 @@ let WebhooksController = WebhooksController_1 = class WebhooksController {
         this.logger.log(`Hotmart webhook received: ${event}`);
         switch (event) {
             case 'PURCHASE_APPROVED':
+            case 'PURCHASE_COMPLETE':
                 await this.webhooksService.handlePurchaseApproved(payload?.data);
                 break;
             case 'PURCHASE_REFUNDED':
