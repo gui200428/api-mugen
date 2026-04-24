@@ -10,6 +10,9 @@ import { AdminAuthModule } from './admin-auth/admin-auth.module';
 import { ModulesModule } from './modules/modules.module';
 import { LessonsModule } from './lessons/lessons.module';
 import { UsersModule } from './users/users.module';
+import { MailModule } from './mail/mail.module';
+import { WebhooksModule } from './webhooks/webhooks.module';
+import { SalesModule } from './sales/sales.module';
 
 @Module({
   imports: [
@@ -39,6 +42,9 @@ import { UsersModule } from './users/users.module';
     ModulesModule,
     LessonsModule,
     UsersModule,
+    MailModule,
+    WebhooksModule,
+    SalesModule,
   ],
   controllers: [AppController],
   providers: [

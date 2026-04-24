@@ -19,6 +19,9 @@ const admin_auth_module_1 = require("./admin-auth/admin-auth.module");
 const modules_module_1 = require("./modules/modules.module");
 const lessons_module_1 = require("./lessons/lessons.module");
 const users_module_1 = require("./users/users.module");
+const mail_module_1 = require("./mail/mail.module");
+const webhooks_module_1 = require("./webhooks/webhooks.module");
+const sales_module_1 = require("./sales/sales.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -51,6 +54,9 @@ exports.AppModule = AppModule = __decorate([
             modules_module_1.ModulesModule,
             lessons_module_1.LessonsModule,
             users_module_1.UsersModule,
+            mail_module_1.MailModule,
+            webhooks_module_1.WebhooksModule,
+            sales_module_1.SalesModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [
