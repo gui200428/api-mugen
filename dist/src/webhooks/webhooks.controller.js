@@ -67,7 +67,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WebhooksController.prototype, "handleHotmart", null);
 exports.WebhooksController = WebhooksController = WebhooksController_1 = __decorate([
-    (0, throttler_1.SkipThrottle)(),
+    (0, throttler_1.SkipThrottle)({ default: true, short: true, medium: true, long: true }),
     (0, common_1.Controller)('webhooks'),
     __metadata("design:paramtypes", [webhooks_service_1.WebhooksService,
         config_1.ConfigService])

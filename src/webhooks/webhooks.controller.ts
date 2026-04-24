@@ -12,7 +12,7 @@ import { ConfigService } from '@nestjs/config';
 import { SkipThrottle } from '@nestjs/throttler';
 import { WebhooksService } from './webhooks.service';
 
-@SkipThrottle()
+@SkipThrottle({ default: true, short: true, medium: true, long: true })
 @Controller('webhooks')
 export class WebhooksController {
   private readonly logger = new Logger(WebhooksController.name);

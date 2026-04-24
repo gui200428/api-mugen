@@ -10,8 +10,11 @@ const helmet_1 = __importDefault(require("helmet"));
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use((0, helmet_1.default)());
+    const corsOrigins = process.env.CORS_ORIGIN
+        ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+        : ['http://localhost:3001'];
     app.enableCors({
-        origin: process.env.CORS_ORIGIN || 'http://localhost:3001',
+        origin: corsOrigins,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
         credentials: true,
     });

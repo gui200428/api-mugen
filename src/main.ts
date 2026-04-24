@@ -10,8 +10,12 @@ async function bootstrap() {
   app.use(helmet());
 
   // CORS — libere apenas os domínios do seu frontend em produção
+  const corsOrigins = process.env.CORS_ORIGIN 
+    ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim()) 
+    : ['http://localhost:3001'];
+
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3001',
+    origin: corsOrigins,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
   });
