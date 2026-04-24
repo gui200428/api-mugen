@@ -30,6 +30,16 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         this.prisma = prisma;
     }
     async validate(payload) {
+        if (payload.role === 'admin') {
+            const admin = await this.prisma.admin.findUnique({
+                where: { id: payload.sub },
+            });
+            if (!admin) {
+                throw new common_1.UnauthorizedException();
+            }
+            const { password, ...result } = admin;
+            return { ...result, role: 'admin' };
+        }
         const user = await this.prisma.user.findUnique({
             where: { id: payload.sub },
         });
@@ -37,7 +47,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
             throw new common_1.UnauthorizedException();
         }
         const { password, ...result } = user;
-        return result;
+        return { ...result, role: 'user' };
     }
 };
 exports.JwtStrategy = JwtStrategy;

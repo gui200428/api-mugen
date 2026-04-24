@@ -22,7 +22,21 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { sub: number; email: string }) {
+  async validate(payload: { sub: number; email: string; role?: string }) {
+    if (payload.role === 'admin') {
+      const admin = await this.prisma.admin.findUnique({
+        where: { id: payload.sub },
+      });
+
+      if (!admin) {
+        throw new UnauthorizedException();
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...result } = admin;
+      return { ...result, role: 'admin' };
+    }
+
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
     });
@@ -33,6 +47,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = user;
-    return result;
+    return { ...result, role: 'user' };
   }
 }
